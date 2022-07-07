@@ -1,26 +1,34 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import React, { useState } from 'react'
+import { MouseEvent } from 'react'
+import './App.css'
 
 function App() {
+  const [arr, setValue] = useState([1, 2, 3])
+
+  const result = arr.map((element, index) => {
+    return <p key={index}>{element}</p>
+  })
+
+  const getValue = (e: MouseEvent) => {
+    e.preventDefault()
+    fetch('http://localhost:3001/users')
+      .then((response) => response.json())
+      .then((result) => {
+        let copy = Object.assign([], arr)
+        console.log(typeof result[0])
+
+        result.forEach((el: any) => copy.push(el.name))
+        setValue(copy)
+      })
+  }
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <h1>hi</h1>
+
+      <button onClick={(e) => getValue(e)}>КНОПКА</button>
+      {result}
     </div>
-  );
+  )
 }
 
-export default App;
+export default App
