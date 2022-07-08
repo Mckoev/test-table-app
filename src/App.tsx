@@ -1,12 +1,63 @@
 import React, { useState } from 'react'
 import { MouseEvent } from 'react'
+import { faker } from '@faker-js/faker'
+import Button from '@mui/material/Button'
+import Table from './components/Table'
 import './App.css'
 
 function App() {
-  const [arr, setValue] = useState([1, 2, 3])
+  interface User {
+    id: number
+    name: string
+    surname: string
+    phone: string
+    address: string
+    IBAN: string
+    company: string
+  }
+
+  interface arrayUserProps {
+    Users: User[]
+  }
+
+  const initialState: User[] = [
+    {
+      id: 1,
+      name: 'Egor',
+      surname: 'Ivanov',
+      phone: '89901234565',
+      address: 'Moscow, Lenina street, 1',
+      IBAN: '142345345',
+      company: 'google',
+    },
+    {
+      id: 2,
+      name: 'Alex',
+      surname: 'Petrov',
+      phone: '8990565345656',
+      address: 'Moscow, Lenina street, 3',
+      IBAN: '1423345345',
+      company: 'google',
+    },
+    {
+      id: 3,
+      name: 'Oleg',
+      surname: 'Sidorov',
+      phone: '899013434346',
+      address: 'Moscow, Lenina street, 5',
+      IBAN: '14235345345',
+      company: 'google',
+    },
+  ]
+
+  const [arr, setValue] = useState(initialState)
 
   const result = arr.map((element, index) => {
-    return <p key={index}>{element}</p>
+    return (
+      <p key={index}>
+        {element.id} {element.name} {element.surname} {element.phone} {element.address} {element.IBAN} {element.company}
+      </p>
+    )
   })
 
   const getValue = (e: MouseEvent) => {
@@ -15,9 +66,16 @@ function App() {
       .then((response) => response.json())
       .then((result) => {
         let copy = Object.assign([], arr)
-        console.log(typeof result[0])
-
-        result.forEach((el: any) => copy.push(el.name))
+        let obj: User = {
+          id: copy.length + 1,
+          name: faker.name.firstName(),
+          surname: faker.name.lastName(),
+          phone: faker.phone.number(),
+          address: faker.address.cityName(),
+          IBAN: faker.finance.iban(),
+          company: faker.company.companyName(),
+        }
+        copy.push(obj)
         setValue(copy)
       })
   }
@@ -25,8 +83,11 @@ function App() {
     <div className="App">
       <h1>hi</h1>
 
-      <button onClick={(e) => getValue(e)}>КНОПКА</button>
+      <Button variant="contained" onClick={(e) => getValue(e)}>
+        КНОПКА
+      </Button>
       {result}
+      <Table Users={arr} />
     </div>
   )
 }

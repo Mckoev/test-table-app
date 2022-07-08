@@ -3,26 +3,26 @@
     {
       "id": 1,
       "name": "Egor",
-      "Soname": "Ivanov",
-      "Phone": 89901234565,
-      "Address": "Moscow, Lenina street, 1",
-      "IBAN": 142345345
+      "surname": "Ivanov",
+      "phone": "89901234565",
+      "address": "Moscow, Lenina street, 1",
+      "IBAN": "142345345"
     },
     {
       "id": 2,
       "name": "Alex",
-      "Soname": "Petrov",
-      "Phone": 8990565345656,
-      "Address": "Moscow, Lenina street, 3",
-      "IBAN": 1423345345
+      "surname": "Petrov",
+      "phone": "8990565345656",
+      "address": "Moscow, Lenina street, 3",
+      "IBAN": "1423345345"
     },
     {
       "id": 3,
       "name": "Oleg",
-      "Soname": "Sidorov",
-      "Phone": 899013434346,
-      "Address": "Moscow, Lenina street, 5",
-      "IBAN": 14235345345
+      "surname": "Sidorov",
+      "phone": "899013434346",
+      "address": "Moscow, Lenina street, 5",
+      "IBAN": "14235345345"
     }
   ]
 }
