@@ -3,7 +3,9 @@ import { MouseEvent } from 'react'
 import { faker } from '@faker-js/faker'
 import Button from '@mui/material/Button'
 import Table from './components/Table'
+import { Example } from './components/Table2'
 import './App.css'
+import Table3 from './components/Table3'
 
 function App() {
   interface User {
@@ -19,6 +21,9 @@ function App() {
   interface arrayUserProps {
     Users: User[]
   }
+
+  const height: number = 600
+  const width: number = 1200
 
   const initialState: User[] = [
     {
@@ -50,7 +55,7 @@ function App() {
     },
   ]
 
-  const [arr, setValue] = useState(initialState)
+  const [arr, setArr] = useState(initialState)
 
   const result = arr.map((element, index) => {
     return (
@@ -62,32 +67,33 @@ function App() {
 
   const getValue = (e: MouseEvent) => {
     e.preventDefault()
+
     fetch('http://localhost:3001/users')
       .then((response) => response.json())
       .then((result) => {
         let copy = Object.assign([], arr)
-        let obj: User = {
-          id: copy.length + 1,
-          name: faker.name.firstName(),
-          surname: faker.name.lastName(),
-          phone: faker.phone.number(),
-          address: faker.address.cityName(),
-          IBAN: faker.finance.iban(),
-          company: faker.company.companyName(),
+        for (let index = 0; index < 10; index++) {
+          let obj: User = {
+            id: copy.length + 1,
+            name: faker.name.firstName(),
+            surname: faker.name.lastName(),
+            phone: faker.phone.number(),
+            address: faker.address.cityName(),
+            IBAN: faker.finance.iban(),
+            company: faker.company.companyName(),
+          }
+          copy.push(obj)
         }
-        copy.push(obj)
-        setValue(copy)
+        setArr(copy)
       })
   }
   return (
     <div className="App">
-      <h1>hi</h1>
-
+      <Table Users={arr} height={height} width={width} />
       <Button variant="contained" onClick={(e) => getValue(e)}>
         КНОПКА
       </Button>
-      {result}
-      <Table Users={arr} />
+      {/* <Table3 height={height} width={width} Users={arr} /> */}
     </div>
   )
 }
