@@ -8,16 +8,20 @@ import TableRow from '@mui/material/TableRow'
 import Paper from '@mui/material/Paper'
 import InfiniteLoader from 'react-window-infinite-loader'
 import { FixedSizeList } from 'react-window'
+import AutoSizer from 'react-virtualized-auto-sizer'
 
-export default function BasicTable({ Users, height, width }) {
+export default function BasicTable({ Users }) {
   const itemsCount = 500
   const loadMoreItems = () => console.log('load more items poshel')
   let items = {}
   const isItemLoaded = (index) => !!items[index]
   const Row = ({ index, style }) => {
+    console.log('ROW')
+    console.log(index)
+    console.log(style)
     return Users.map((user) => (
-      <TableRow key={user.id} sx={{ '&:last-child td, &:last-child th': { border: 0 } }}>
-        <TableCell component="th" scope="row">
+      <TableRow key={user.id} sx={{ '&:last-child td, &:last-child th': { border: 0 } }} style={style}>
+        <TableCell component="th" scope="row" style={style}>
           {user.id}
         </TableCell>
         <TableCell align="right">{user.name}</TableCell>
@@ -31,29 +35,22 @@ export default function BasicTable({ Users, height, width }) {
   }
 
   return (
-    <TableContainer component={Paper}>
-      <Table sx={{ minWidth: 650 }} aria-label="simple table">
-        <TableHead>
-          <TableRow>
-            <TableCell>ID</TableCell>
-            <TableCell align="right">First Name</TableCell>
-            <TableCell align="right">Last Name</TableCell>
-            <TableCell align="right">Telephone</TableCell>
-            <TableCell align="right">Address</TableCell>
-            <TableCell align="right">IBAN</TableCell>
-            <TableCell align="right">Company</TableCell>
-          </TableRow>
-        </TableHead>
-        <TableBody>
-          <InfiniteLoader isItemLoaded={isItemLoaded} itemCount={itemsCount} loadMoreItems={loadMoreItems}>
-            {({ onItemsRendered, ref }) => (
-              <FixedSizeList itemCount={itemsCount} onItemsRendered={onItemsRendered} ref={ref} height={height} width={width} itemSize={35}>
-                {Row}
-              </FixedSizeList>
-            )}
-          </InfiniteLoader>
-        </TableBody>
-      </Table>
-    </TableContainer>
+    <AutoSizer>
+      {({ height, width }) => (
+        <TableContainer component={Paper}>
+          <Table sx={{ minWidth: 650 }} aria-label="simple table">
+            <TableBody>
+              <InfiniteLoader isItemLoaded={isItemLoaded} itemCount={itemsCount} loadMoreItems={loadMoreItems}>
+                {({ onItemsRendered, ref }) => (
+                  <FixedSizeList itemCount={itemsCount} onItemsRendered={onItemsRendered} ref={ref} height={height} width={width} itemSize={95}>
+                    {Row}
+                  </FixedSizeList>
+                )}
+              </InfiniteLoader>
+            </TableBody>
+          </Table>
+        </TableContainer>
+      )}
+    </AutoSizer>
   )
 }
