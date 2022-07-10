@@ -32,10 +32,8 @@ export default function Table5({ Users, setUsers }) {
   const Row = ({ index, style }) => {
     const item = Users[index]
 
-    console.log(style)
-
     return (
-      <div className={index % 2 ? 'ListItemOdd' : 'ListItemEven'} style={{ ...style, height: '100%' }}>
+      <div className={index % 2 ? 'ListItemOdd' : 'ListItemEven'} style={style}>
         {item ? `${item.id} ${item.name}: ${item.surname}: ${item.phone} ${item.address} ${item.IBAN} ${item.company}` : 'Loading...'}
       </div>
     )

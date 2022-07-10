@@ -46,31 +46,12 @@ function App() {
     },
   ]
 
-  // const getValue = (e: MouseEvent) => {
-  //   e.preventDefault()
+  const [arr, setArr] = useState(initialState)
 
-  //   fetch('http://localhost:3001/users')
-  //     .then((response) => response.json())
-  //     .then((result) => {
-  //       let copy = Object.assign([], arr)
-  //       for (let index = 0; index < 10; index++) {
-  //         let obj: User = {
-  //           id: copy.length + 1,
-  //           name: faker.name.firstName(),
-  //           surname: faker.name.lastName(),
-  //           phone: faker.phone.number(),
-  //           address: faker.address.cityName(),
-  //           IBAN: faker.finance.iban(),
-  //           company: faker.company.companyName(),
-  //         }
-  //         copy.push(obj)
-  //       }
-  //       setArr(copy)
-  //     })
-  // }
   return (
     <div className="App">
       <Table4 />
+      <Table5 Users={arr} setUsers={setArr}></Table5>
     </div>
   )
 }
